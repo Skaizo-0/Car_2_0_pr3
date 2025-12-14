@@ -47,10 +47,10 @@ public class KartController : MonoBehaviour
     [Header("Tyre friction")]
     [SerializeField] private float frictionCoefficient = 1f;
     [SerializeField] private float lateralStiffnes = 80f;
-    [SerializeField] private float rollingResistance = 30f; // важно! было пусто — подбери 20-50
+    [SerializeField] private float rollingResistance = 30f; 
 
     [Header("Handbrake")]
-    [SerializeField] private float handbrakeRollingMultiplier = 8f; // насколько сильнее тормозит зад при ручнике
+    [SerializeField] private float handbrakeRollingMultiplier = 8f; 
 
     private float speedAlongForward = 0f;
     private float Fx = 0f;
@@ -103,12 +103,10 @@ public class KartController : MonoBehaviour
         _steepInput = Mathf.Clamp(move.x, -1, 1);
         _throttleInput = Mathf.Clamp(move.y, -1, 1);
 
-        // Ручник — лучше через Input System, но пока через Space
+       
         _handbrakePressed = Input.GetKey(KeyCode.Space);
 
-        // Если хочешь через Input System — раскомментируй:
-        // var handbrakeAction = map.FindAction("Handbrake");
-        // _handbrakePressed = handbrakeAction.IsPressed();
+        
     }
 
     void RotateFrontWheels()
@@ -168,27 +166,27 @@ public class KartController : MonoBehaviour
 
         bool isRear = (wheel == _rearLeftWheel || wheel == _rearRightWheel);
 
-        // === РУЧНИК ПО ТРЕБОВАНИЯМ ===
+       
         float currentLateralStiffness = lateralStiffnes;
         float currentRollingResistance = rollingResistance;
 
         if (isRear && _handbrakePressed)
         {
-            currentLateralStiffness = 0f; // Cα = 0 → обязательный занос по требованиям
+            currentLateralStiffness = 0f; 
 
-            // Усиливаем сопротивление качению — основное торможение
-            currentRollingResistance *= handbrakeRollingMultiplier; // в инспекторе поставь 15–25
+          
+            currentRollingResistance *= handbrakeRollingMultiplier; 
 
-            // Дополнительное контролируемое торможение (ТОЛЬКО против скорости, положительное значение!)
-            float additionalBrakeForce = 1200f; // подбери: 800 = мягко, 2000 = очень резко
-            if (Mathf.Abs(vlong) > 0.5f) // применяем только если колесо катится
+            
+            float additionalBrakeForce = 1200f; 
+            if (Mathf.Abs(vlong) > 0.5f) 
             {
-                float brakeDir = vlong > 0 ? -1f : 1f; // всегда против направления движения
+                float brakeDir = vlong > 0 ? -1f : 1f; 
                 Fx += brakeDir * additionalBrakeForce;
             }
         }
 
-        // Тяга от KartEngine (твоя основная система)
+        
         if (isDrive)
         {
             speedAlongForward = Vector3.Dot(_rigidbody.linearVelocity, transform.forward);
@@ -198,24 +196,24 @@ public class KartController : MonoBehaviour
             Fx += wheelTorque / wheelRadius;
         }
 
-        // Сопротивление качению — только для передних (как было у тебя изначально)
+        
         if (isSteer)
         {
             float rooling = -currentRollingResistance * vlong;
             Fx += rooling;
         }
 
-        // Боковая сила
+        
         float fyRaw = -currentLateralStiffness * vlat;
         Fy += fyRaw;
 
-        // Твоё старое ограничение трения (именно оно давало хорошую поворачиваемость)
+        
         float frictionlimit = frictionCoefficient * normalForce;
         float forceLenght = Mathf.Sqrt(Fx * Fx + Fy * Fy);
         if (forceLenght > frictionlimit)
         {
             float scale = frictionlimit / forceLenght;
-            Fy += scale;  // ← твоя "фишка" — добавляем, а не умножаем
+            Fy += scale;  
             Fx += scale;
         }
 
@@ -223,7 +221,7 @@ public class KartController : MonoBehaviour
         _rigidbody.AddForceAtPosition(force, wheel.position, ForceMode.Force);
     }
 
-    // OnGUI — оставил твой красивый
+    
     void OnGUI()
     {
         GUIStyle style = new GUIStyle(GUI.skin.label);
