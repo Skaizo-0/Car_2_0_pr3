@@ -23,7 +23,7 @@ public class CarSuspension : MonoBehaviour
     private float lastRLcompression;
     private float lastRRcompression;
 
-    // Переменные ТОЛЬКО для вывода в UI (логику не меняют)
+    
     private float ui_FL_force, ui_FR_force, ui_RL_force, ui_RR_force;
 
     [Header("Anti-Roll Bar")]
@@ -81,7 +81,7 @@ public class CarSuspension : MonoBehaviour
             lastCompression = compression;
             float totalForce = springForce + damperForce;
 
-            // Сохраняем для UI
+            
             if (pivot == fl) ui_FL_force = totalForce;
             else if (pivot == fr) ui_FR_force = totalForce;
             else if (pivot == rl) ui_RL_force = totalForce;
@@ -94,7 +94,7 @@ public class CarSuspension : MonoBehaviour
 
     private void OnGUI()
     {
-        // Красивое темное окно справа
+        
         GUI.color = new Color(0, 0, 0, 0.8f);
         GUI.Box(new Rect(Screen.width - 310, 10, 300, 220), "");
         GUI.color = Color.white;
@@ -117,11 +117,11 @@ public class CarSuspension : MonoBehaviour
         GUI.Label(new Rect(x, y, 280, 20), $"RL Force: {ui_RL_force:F0} N"); y += 20;
         GUI.Label(new Rect(x, y, 280, 20), $"RR Force: {ui_RR_force:F0} N"); y += 30;
 
-        // Высота центра масс (параметр 8)
+        
         float comHeight = transform.InverseTransformPoint(rb.worldCenterOfMass).y;
         GUI.Label(new Rect(x, y, 280, 20), $"Center of Mass Height: {comHeight:F3} m"); y += 20;
 
-        // Данные из Aero если он есть
+        
         var aero = GetComponent<KartAreo>();
         if (aero != null)
         {

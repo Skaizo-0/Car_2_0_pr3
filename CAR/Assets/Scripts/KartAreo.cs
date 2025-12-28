@@ -14,13 +14,13 @@ public class KartAreo : MonoBehaviour
     [SerializeField] private Transform rearWing;
     [SerializeField] private float wingArea = 0.4f;
     [SerializeField] private float liftCoefficientSlope = 0.05f;
-    public float wingAngleDeg = 10f; // Сделал public для UI
+    public float wingAngleDeg = 10f; 
 
     [Header("Ground Effect")]
     [SerializeField] private float groundEffectStrength = 3000f;
     [SerializeField] private float groundRayLength = 1.0f;
 
-    // Новые переменные ТАКИЕ ЖЕ как в физике, только для чтения в UI
+    
     [HideInInspector] public float lastDragForce;
     [HideInInspector] public float lastDownforce;
 
@@ -53,7 +53,7 @@ public class KartAreo : MonoBehaviour
         float Cl = liftCoefficientSlope * alphaRad;
 
         float downforce = 0.5f * airDensity * Cl * wingArea * speed * speed;
-        lastDownforce = downforce; // Записываем для UI
+        lastDownforce = downforce; 
 
         Vector3 force = -transform.up * downforce;
         rb.AddForceAtPosition(force, rearWing.position, ForceMode.Force);
@@ -74,7 +74,7 @@ public class KartAreo : MonoBehaviour
         if (speed < 0.01f) { lastDragForce = 0; return; }
 
         float dragForce = 0.5f * airDensity * dragCoefficient * frontalArea * speed * speed;
-        lastDragForce = dragForce; // Записываем для UI
+        lastDragForce = dragForce; 
 
         Vector3 drag = -v.normalized * dragForce;
         rb.AddForce(drag, ForceMode.Force);

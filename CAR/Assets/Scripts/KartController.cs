@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class KartController : MonoBehaviour
 {
-    // ... (ВСЕ ТВОИ ПЕРЕМЕННЫЕ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ) ...
+   
     [Header("Import parametrs")]
     [SerializeField] private bool _import = false;
     [SerializeField] private KartConfig _kartConfig;
@@ -156,12 +156,12 @@ public class KartController : MonoBehaviour
             currentFx *= scale;
         }
 
-        Fx = currentFx; Fy = currentFy; // Для UI
+        Fx = currentFx; Fy = currentFy; 
         Vector3 force = wheelForward * currentFx + wheelRight * currentFy;
         _rigidbody.AddForceAtPosition(force, wheel.position, ForceMode.Force);
     }
 
-    // НОВЫЙ КРАСИВЫЙ UI
+
     void OnGUI()
     {
         GUI.color = new Color(0, 0, 0, 0.8f);
@@ -184,12 +184,12 @@ public class KartController : MonoBehaviour
         GUI.Label(new Rect(20, y, 300, 20), $"Engine RPM: {_engine.CurrentRpm:F0} RPM"); y += 25;
         GUI.Label(new Rect(20, y, 300, 20), $"Current Torque: {_engine.CurrentTorque:F1} N·m"); y += 30;
 
-        // Пытаемся взять силы из Aero (задание требует Drag и Downforce)
+        
         var aero = GetComponent<KartAreo>();
         if (aero != null)
         {
             GUI.color = Color.green;
-            // Рассчитываем их прямо тут для UI, чтобы не лезть в логику Aero
+            
             float speedSq = speedMS * speedMS;
             float drag = 0.5f * 1.225f * 0.9f * 0.6f * speedSq;
             float downforce = 0.5f * 1.225f * (0.05f * aero.wingAngleDeg * Mathf.Deg2Rad) * 0.4f * speedSq;
