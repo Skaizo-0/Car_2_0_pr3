@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9bfa2bd7966f848abd7c69042a8069, type: 3}
   m_Name: KartConfig
   m_EditorClassIdentifier: Assembly-CSharp::KartConfig
-  mass: 1
+  mass: 25
   frictionCoefficient: 1
-  lateralStiffness: 1
-  rollingResistance: 1
-  maxSteerAngle: 1
+  lateralStiffness: 80
+  rollingResistance: 0.07
+  maxSteerAngle: 60
   engineTorqueCurve:
     serializedVersion: 2
     m_Curve:
@@ -41,7 +41,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  engineInertia: 1
-  maxRpm: 1
-  gearRatio: 1
-  wheelRadius: 1
+  engineInertia: 0.2
+  maxRpm: 6000
+  gearRatio: 8
+  wheelRadius: 0.3

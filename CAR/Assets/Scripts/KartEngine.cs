@@ -68,7 +68,7 @@ public class KartEngine : MonoBehaviour
         CurrentRpm += rpmDot * deltaTime;
 
         if (CurrentRpm < _idleRpm) CurrentRpm = _idleRpm;
-        if (CurrentRpm > _maxRpm)  CurrentRpm = _maxRpm;
+        if (CurrentRpm > _maxRpm) CurrentRpm = _maxRpm;
 
         CurrentTorque = driveTorque;
         return CurrentTorque;
